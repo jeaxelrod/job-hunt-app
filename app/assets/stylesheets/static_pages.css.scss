@@ -1,0 +1,70 @@
+// Place all the styles related to the StaticPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+/* Universal */
+body {    
+	font-family: arial, helvetica, sans-serif;
+	margin: 0;
+}
+
+/* Title */
+
+.home-title {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 75px;
+    width: 500px;
+	border: 1px solid black;
+	text-align: center;
+	#title {
+		font-size:100px;
+	}
+	#slogan {
+		font-size: 25px;
+		font-family: helvetica
+	}
+}
+
+
+.login-info {
+	clear: both;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 25px;
+	width: 1000px;
+	.input-fields {
+		text-align: center;
+		input {
+			font-size: 25px; 
+		}
+	}
+	p {
+		text-align: center;
+		margin-top: 0px;
+		font-size: 80%;
+	}
+}
+
+
+/* About  */
+
+.about {
+	width: 100%;
+	height: 600px;
+	background-color: #cccccc;
+	margin:0;
+	padding:0;
+	text-align: center;
+	padding-top: 25px;
+	#about-title {
+		text-decoration: none;
+		font-size: 50px;
+		color: black;
+	}
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 26px;
+	}
+}
