@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe "StaticPages" do
+	subject { page }
+	
   describe "Home page" do
-		it "should have title 'The Croc Hunter'" do
-			visit root_path
-			expect(page).to have_selector('h1', text:'The Croc Hunter')
-		end
+		before { visit root_path }
+		it { should have_selector('h1', text:'The Croc Hunter') }
+
+		
   end
 	
 	describe "Contact page" do
