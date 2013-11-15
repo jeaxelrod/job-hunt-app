@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
 <head>
-  <title>Job Hunter</title>
+  <title>Job Hunter | User Profile</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,12 +8,6 @@
 	<![endif]-->
 </head>
 <body>
-	<div class="container">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
-		<% end %>
-	<%= yield %>
+	<p><%= @user.name %></p>
 	<%= debug(params) if Rails.env.development? %>
 </body>
-
-</html>

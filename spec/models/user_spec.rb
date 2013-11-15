@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before { @user = User.new(username: "Example User", password: "foobar",
-														password_confirmation: "foobar") }
+														password_confirmation: "foobar", name: "Example") }
 	
 	subject { @user }
 	
@@ -11,6 +11,7 @@ describe User do
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
 	it { should respond_to(:authenticate) }
+	it { should respond_to(:name) }
 	
 	it { should be_valid }
 	
