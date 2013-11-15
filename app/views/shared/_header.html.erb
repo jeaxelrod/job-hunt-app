@@ -1,0 +1,23 @@
+<% if signed_in? %>	
+	<header class="header">
+		<nav class="nav">
+			<%= link_to "Home", root_path, class:"logo" %>
+			<ul class="nav-list">
+				<li><%= link_to "Jobs", '#' %></li>
+				<li><%= link_to "List", '#' %></li>
+				<li><%= link_to "Interviews", '#' %></li>
+				<li><%= link_to "Profile", current_user %></li>
+			</ul>
+			<ul id="settings">
+				<li><%= link_to "Settings", '#' %>
+					<ul>
+						<li><%= link_to "Help", '#' %></li>
+						<li><%= link_to "Account", '#' %></li>
+						<li><%= link_to "Preferences", '#' %></li>
+						<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</header>
+<% end %>

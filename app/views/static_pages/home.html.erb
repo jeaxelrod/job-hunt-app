@@ -3,16 +3,18 @@
     <h1 id="title">The Croc Hunter</h1>
       <p id="slogan">Tools to help the croc hunt</p>
   </div>
-  <div class="login-info">
-    <form method="POST" action="#">
-	  <div class="input-fields">
-		<input type="text" name="username" size="15" placeholder="Username" >
-		<input type="text" name="password" size="15" placeholder="Password" >
-		<input type="submit" value="Login" >
-	  </div>
-	</form>
-	<p><a id="create-account" href="/signup">Create an account</a></p>
-  </div>
+	<% if signed_in? %>
+		<div class="signed-in-filler"></div>
+	<% else %>
+		<div class="login-info">
+			<%= form_for(:session, url: sessions_path) do |f| %>
+				<%= f.text_field :username, placeholder: 'Username' %>
+				<%= f.password_field :password, placeholder: 'Password' %>
+				<%= f.submit 'Sign in' %>
+				<%= link_to "Create an accout", signup_path %>
+			<% end %>
+		</div>
+	<% end %>
   <div class="about" >
    <a id="about-title"  href="#">What is it?</a>
    <img src="http:///placekitten.com/500/500" />

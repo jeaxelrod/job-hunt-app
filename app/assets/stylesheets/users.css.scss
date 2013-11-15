@@ -26,3 +26,65 @@ h1 {
 		border: 1px solid red;
 	}
 }
+
+/* Header */
+
+
+.header {
+	background-color: #ccc;
+}	
+
+.logo {
+	background-image: url(http:///placekitten.com/220/40);
+	width: 220px;
+	height: 40px;
+	text-align: center;
+	display: inline-block;
+	margin-left: 50px;
+}
+.nav {
+	vertical-align: baseline;
+	height: 40px;
+	padding: 20px 30px 30px 30px;
+	
+}
+
+.nav-list {
+	display: inline;
+	margin: 0;
+	padding-left: 100px;
+}
+
+.nav ul li {
+	padding: 0 30px 0 30px;
+	display: inline;
+	font-size: 20px;
+	
+}
+#settings {
+	float: right;
+	display: inline-table;
+	position: relative;
+	li {
+		float: right;
+	}
+	li:hover {
+		background: #4b545f;
+		text-decoration-color: #fff;
+	}
+	ul {
+		display: none;
+		position: absolute;
+		top: 100%;
+		padding: 0;
+		li {
+			float: none;
+			position: relative;
+			padding: 0;
+		}
+	}
+	li:hover > ul {
+		display: block;
+	}
+}
+
