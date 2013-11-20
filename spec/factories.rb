@@ -9,4 +9,13 @@ FactoryGirl.define do
 			admin true
 		end
 	end
+	factory :job do
+		title "Jobs"
+		user
+	end
+	factory :job_column do
+		title "Job Title"
+		content "Intern"
+		job
+	end
 end

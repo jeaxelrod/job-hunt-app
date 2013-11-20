@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 						 uniqueness: { case_sensitive: false }
 	validates :password, length: { minimum: 6 }
 	has_secure_password
+	has_many :jobs, dependent: :destroy
+	accepts_nested_attributes_for :jobs
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
@@ -20,3 +22,17 @@ class User < ActiveRecord::Base
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
 end
+
+# == Schema Information
+#
+# Table name: user
+#
+# id              :integer     not null, primary key
+# username        :string		   not null
+# password_digest :string			 not null
+# name            :string     
+# admin           :boolean		 default(false) not null
+# remember_token  :string
+# created_at      :datetime    not null
+# updated_at      :datetime    not null
+#

@@ -45,20 +45,20 @@ describe "Authentication" do
 		describe "for non-signed-in users" do
 			let(:user) { FactoryGirl.create(:user) }
 			
-		describe "when attempting to visit a protected page" do
-			before do
-				visit edit_user_path(user)
-				fill_in "Username",    with: user.username
-				fill_in "Password", with: user.password
-				click_button "Sign in"
-			end
+			describe "when attempting to visit a protected page" do
+				before do
+					visit edit_user_path(user)
+					fill_in "Username",    with: user.username
+					fill_in "Password", with: user.password
+					click_button "Sign in"
+				end
 			
-			describe "after signing in" do
-				it "should renderthe desired protected page" do
-					expect(page).to have_content('Update your profile')
+				describe "after signing in" do
+					it "should renderthe desired protected page" do
+						expect(page).to have_content('Update your profile')
+					end
 				end
 			end
-		end
 			
 			describe "in the Users controller" do
 				
@@ -74,6 +74,16 @@ describe "Authentication" do
 			end
 		end
 	
+		describe "for signed-in users" do
+			let(:user) { FactoryGirl.create(:user) }
+			before { sign_in user, no_capybara: true }
+			
+			describe "when attempting to create a new user" do
+				before { get new_user_path }
+				specify { response.should redirect_to(root_url) }
+			end
+		end
+			
 		describe "as wrong user" do
 			let(:user) { FactoryGirl.create(:user) }
 			let(:wrong_user) { FactoryGirl.create(:user, username: "wronguser") }
