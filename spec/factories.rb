@@ -12,10 +12,19 @@ FactoryGirl.define do
 	factory :job do
 		title "Jobs"
 		user
+		job_group
 	end
 	factory :job_column do
 		title "Job Title"
+		user
+	end
+	factory :job_column_content do
 		content "Intern"
+		job_column
 		job
+	end
+	factory :job_group do
+		name "Internships"
+		user
 	end
 end

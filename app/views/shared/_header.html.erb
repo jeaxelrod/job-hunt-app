@@ -3,7 +3,7 @@
 		<nav class="nav">
 			<%= link_to "Home", root_path, class:"logo" %>
 			<ul class="nav-list">
-				<li><%= link_to "Jobs", '#' %></li>
+				<li><%= link_to "Jobs", jobs_path(:id => current_user.id) %></li>
 				<li><%= link_to "List", '#' %></li>
 				<li><%= link_to "Interviews", '#' %></li>
 				<li><%= link_to "Profile", current_user %></li>

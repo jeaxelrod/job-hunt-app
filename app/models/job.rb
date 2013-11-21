@@ -1,8 +1,10 @@
 class Job < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :job_columns
+	belongs_to :job_group
+	has_many :job_column_contents, dependent: :destroy
+	default_scope -> { order('created_at DESC') }
 	validates :user_id, presence: true
-	accepts_nested_attributes_for :job_columns
+	validates :job_group_id, presence: true
 end
 
 

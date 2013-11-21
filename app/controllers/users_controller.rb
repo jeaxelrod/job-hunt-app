@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :signed_in_user, only: [:edit, :update, :destroy]
+	before_action :signed_in_user, only: [:edit, :update, :destroy, :show]
 	before_action :correct_user,   only: [:edit, :update]
 	before_action :admin_user,     only: :destroy
 	before_action :non_signed_in_user, only: [:new, :create]
@@ -13,6 +13,11 @@ class UsersController < ApplicationController
   end
 	
 	def edit
+	end
+	
+	def jobs
+		@user = User.find(params[:id])
+		render jobs_path
 	end
 	
 	def update

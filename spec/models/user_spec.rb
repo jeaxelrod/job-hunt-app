@@ -15,6 +15,8 @@ describe User do
 	it { should respond_to(:name) }
 	it { should respond_to(:admin) }
 	it { should respond_to(:jobs) }
+	it { should respond_to(:job_columns) }
+	it { should respond_to(:job_groups) }
 	
 	it { should be_valid }
 	it { should_not be_admin }
@@ -87,5 +89,53 @@ describe User do
 	describe "remember token" do
 		before { @user.save }
 		its (:remember_token) { should_not be_blank }
+	end
+	
+	describe "job associations" do
+		
+		before { @user.save }
+		let(:job_group) { FactoryGirl.create(:job_group, user: @user) }
+		let!(:older_job) do
+			FactoryGirl.create(:job, user: @user, job_group: job_group, 
+												 created_at: 1.day.ago)
+		end
+		let!(:newer_job) do
+			FactoryGirl.create(:job, user: @user, job_group: job_group, 
+												 created_at: 1.hour.ago)
+		end
+		
+		
+		it "should have the right jobs in the right order" do
+			expect(@user.jobs.to_a).to eq [newer_job, older_job]
+		end
+		
+		it "deleting user should destroy jobs" do
+			jobs = @user.jobs.to_a
+			@user.destroy
+			expect(jobs).not_to be_empty
+			jobs.each do |job|
+				expect(Job.where(id: job.id)).to be_empty
+			end
+		end
+	end
+	
+	describe "job column contents assocations" do
+	
+		before { @user.save }
+		
+		let(:job_group) { FactoryGirl.create(:job_group, user: @user) }
+		let(:job) { FactoryGirl.create(:job, user: @user, job_group: job_group) }
+		let(:job_column) { FactoryGirl.create(:job_column, user: @user) }
+		let!(:column_content) { FactoryGirl.create(:job_column_content, 
+																job_column: job_column, job: job) }
+								
+		it "deleting user should destroy job column contents" do
+			contents = job.job_column_contents.to_a
+			@user.destroy
+			expect(contents).not_to be_empty
+			contents.each do |content|
+				expect(JobColumnContent.where(id: content.id)).to be_empty
+			end
+		end
 	end
 end

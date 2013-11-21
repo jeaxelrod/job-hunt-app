@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }
 	has_secure_password
 	has_many :jobs, dependent: :destroy
+	has_many :job_groups, dependent: :destroy
+	has_many :job_columns, dependent: :destroy
 	accepts_nested_attributes_for :jobs
 
 	def User.new_remember_token

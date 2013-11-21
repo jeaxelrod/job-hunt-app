@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119203001) do
+ActiveRecord::Schema.define(version: 20131120174822) do
 
   create_table "job_column_contents", force: true do |t|
     t.string   "content"
@@ -25,12 +25,14 @@ ActiveRecord::Schema.define(version: 20131119203001) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "job_groups", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "user_id"
   end
 
   create_table "jobs", force: true do |t|
@@ -38,7 +40,7 @@ ActiveRecord::Schema.define(version: 20131119203001) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.integer  "job_grou_id"
+    t.integer  "job_group_id"
   end
 
   add_index "jobs", ["user_id", "created_at"], name: "index_jobs_on_user_id_and_created_at"
