@@ -1,0 +1,17 @@
+<h1>Edit Jobs</h1>
+
+<div class="form">
+	<%= form_for(@job, url: user_job_path) do |f| %>
+	<% i = 0 %>
+		<%= render 'shared/error_messages' %>
+		
+		<%= f.fields_for(:job_column_contents) do |cf| %>
+		
+			<%= cf.label :content, @job_columns[i].title  %>
+			<%= cf.text_field :content %>
+			<% i += 1 %>
+		<% end %>
+		<%= f.submit "Save changes" %>
+	<% end %>
+</div>
+	

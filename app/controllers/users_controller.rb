@@ -15,10 +15,6 @@ class UsersController < ApplicationController
 	def edit
 	end
 	
-	def jobs
-		@user = User.find(params[:id])
-		render jobs_path
-	end
 	
 	def update
 		@user = User.find(params[:id])
@@ -35,9 +31,19 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			sign_in @user
+			
+			@user.job_groups.create(name: "Interested")
+			@user.job_groups.create(name: "Applied")
+			
+			@user.job_columns.create(title: "Position")
+			@user.job_columns.create(title: "Company" )
+			@user.job_columns.create(title: "Applied?")
+			@user.job_columns.create(title: "Date Added")
+			
 			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user
 		else
+			flash[:failure] = "Error"
 			render 'new'
 		end
 	end

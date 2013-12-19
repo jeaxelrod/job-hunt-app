@@ -1,6 +1,8 @@
 class JobColumnContent < ActiveRecord::Base
 	belongs_to :job
 	belongs_to :job_column
+	#validates :job_id, presence: true HELP: Can't create job posting with this listed
+	validates :job_column_id, presence: true
 end
 
 # ==Schema Information

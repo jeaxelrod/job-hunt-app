@@ -32,16 +32,21 @@ body {
 	margin-left: auto;
 	margin-top: 25px;
 	width: 1000px;
-	.input-fields {
-		text-align: center;
-		input {
-			font-size: 25px; 
-		}
+	text-align: center;
+	input{
+		font-size: 25px;
 	}
-	p {
+	input#session_username {
+			width: 200px;
+	}
+	input#session_password {
+			width: 200px;
+	}
+	a {
 		text-align: center;
 		margin-top: 0px;
 		font-size: 80%;
+		display: block;
 	}
 }
 

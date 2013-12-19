@@ -3,6 +3,7 @@ class Job < ActiveRecord::Base
 	belongs_to :job_group
 	has_many :job_column_contents, dependent: :destroy
 	default_scope -> { order('created_at DESC') }
+	accepts_nested_attributes_for :job_column_contents
 	validates :user_id, presence: true
 	validates :job_group_id, presence: true
 end

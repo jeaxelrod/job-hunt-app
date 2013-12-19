@@ -1,0 +1,33 @@
+/* Jobs Index */
+
+ol.tree {
+  padding: 0 0 0 30px;
+	width: 1200px;
+	
+	li {
+		position: relative;
+		list-style: none;
+		margin-left: -15px;
+		
+
+
+	}
+	.edit-job a {
+		color: white;
+	}
+	tr:hover {
+		.edit-job a {
+		color: blue;
+		}
+	}
+	
+	table {
+		text-align: left;
+		
+		tbody th {
+			font-weight: normal;
+		}
+	}
+}
+
+

@@ -1,14 +1,15 @@
 JobApp::Application.routes.draw do
-	resources :users
+	resources :users do
+		resources :jobs
+	end
 	resources :sessions, only: [:new, :create, :destroy]
-	resources :jobs, path: '/user/:id/jobs'
+
 	
 	root 'static_pages#home', :controller=>"sessions"
 	match '/contact', to: 'static_pages#contact', via: 'get'
 	match '/signup',  to: 'users#new',            via: 'get'
 	match '/signout', to: 'sessions#destroy',     via: 'delete'
 	match '/signin',  to: 'sessions#new',         via: 'get'
-	
 	
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

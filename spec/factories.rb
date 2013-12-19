@@ -15,7 +15,7 @@ FactoryGirl.define do
 		job_group
 	end
 	factory :job_column do
-		title "Job Title"
+		sequence(:title) { |n| "Job Title #{n}" }
 		user
 	end
 	factory :job_column_content do
