@@ -11,22 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120174822) do
-
-  create_table "job_column_contents", force: true do |t|
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "job_column_id"
-    t.integer  "job_id"
-  end
-
-  create_table "job_columns", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-  end
+ActiveRecord::Schema.define(version: 20131219211428) do
 
   create_table "job_groups", force: true do |t|
     t.datetime "created_at"
