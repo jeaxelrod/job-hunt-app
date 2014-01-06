@@ -10,18 +10,13 @@ FactoryGirl.define do
 		end
 	end
 	factory :job do
-		title "Jobs"
+		position "Jobs"
+		company "Orange"
+		location "Mountain View, CA"
+		applied "False"
+		date_applied "12/23/2013"
 		user
 		job_group
-	end
-	factory :job_column do
-		sequence(:title) { |n| "Job Title #{n}" }
-		user
-	end
-	factory :job_column_content do
-		content "Intern"
-		job_column
-		job
 	end
 	factory :job_group do
 		name "Internships"

@@ -7,26 +7,33 @@ namespace :db do
 								 password_confirmation: "foobar",
 								 admin: true)
 		user = User.first
-		job_columns = []
 		names = ["Interested", "Applied"]
 		column_titles = ["Position", "Company", "Applied?", "Date Added"]
-		job_contents = [["Intern", "Amazon", "Yes", "11/20/13"],
-										["Lab Assistant", "Oncomed Pharmaceuticals", "No" , "11/20/13"],
-										["Janitor", "UC Berkeley", "No", "11/23/12"],
-										["Web Designer", "Designers", "Yes", "11/20/13"],
-										["Lab Technician", "Mohs Travel Tech and Services", "Yes", "10/15/13"]]
-		5.times do |n|
-			job_columns[n] = user.job_columns.create!(title: column_titles[n])
-		end
+		job_contents = [["Intern", "Amazon", "Seattle, WA", true, "Entry level", "", "amazon.com"],
+										["Lab Assistant", "Oncomed Pharmaceuticals", "Redwood City, CA" , false, "Mom works here", "Target Validation Group" , "oncomed.com"],
+										["Janitor", "UC Berkeley", "Berkeley, CA", true, "Dr. Steinman's lab under stevie", "", "berkeley.edu"],
+										["Web Designer", "Designers", "San Francisco, CA", false, "Self-employed", "",""],
+										["Lab Technician", "Mohs Travel Tech and Services", "Vacaville, CA", true, "Talked to david", "", "mohs.com"]]
+		
 		2.times do |n|
 			job_group = user.job_groups.create!(name: names[n])
 			5.times do |i|
-				title = "job #{i}"
+				position = job_contents[i][0]
+				company =  job_contents[i][1]
+				location = job_contents[i][2]
+				applied = job_contents[i][3]
+				notes = job_contents[i][4]
+				description = job_contents[i][5]
+				link = job_contents[i][6]
 				job_group_id = job_group.id
-				job = user.jobs.create!(title: title, job_group_id: job_group_id)
-				4.times do |j|
-					job.job_column_contents.create!(job_column_id: job_columns[j].id, content: job_contents[i][j] )
-				end
+				job = user.jobs.create!(position: position, 
+																company: company,
+																job_group_id: job_group_id,
+																location: location,
+																applied: applied,
+																notes: notes,
+																description: description,
+																link: link)
 			end
 		end
 	end

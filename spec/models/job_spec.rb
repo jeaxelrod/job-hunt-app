@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Job do
   let(:user) { FactoryGirl.create(:user) }
-	before { @job = user.jobs.build(user_id: user.id) }
+	let(:job_group) { FactoryGirl.create(:job_group) }
+	before { @job = user.jobs.build(job_group_id: job_group.id) }
 	
 	subject{ @job }
 	

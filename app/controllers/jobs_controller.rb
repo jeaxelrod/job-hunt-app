@@ -7,20 +7,18 @@ class JobsController < UsersController
 		@user = User.find(params[:user_id])
 		@jobs = @user.jobs
 		@job_groups = @user.job_groups
-		@job_columns = @user.job_columns
+		@job_columns = ["position", "company", "applied", "description", "link", "notes" ]
+		@last_column = @job_columns.last
 	end
 	
 	def edit
 		@user = User.find(params[:user_id])
 		@job = Job.find(params[:id])
-		@job_columns = @user.job_columns
 	end
 	
 	def update
 		@user = User.find(params[:user_id])
 		@job = Job.find(params[:id])
-		@contents = @job.job_column_contents
-		@job_columns = @user.job_columns
 		if @job.update_attributes(job_params)
 			flash[:success] = "Job Updated"
 			redirect_to user_jobs_path
@@ -31,28 +29,19 @@ class JobsController < UsersController
 	
 	def new
 		@user = User.find(params[:user_id])
-		@job_columns = @user.job_columns
 		@job_group = @user.job_groups.find(params[:job_group_id])
 		set_instance_job_group(@job_group)
 		@job = @user.jobs.build(job_group_id: @job_group.id)
-		@job_columns.each do |column|
-			@job.job_column_contents.build(job_column_id: column.id)
-		end
 	end
 	
 	def create 
 		@user = User.find(params[:user_id])
-		@job_columns = @user.job_columns
-		@job = @user.jobs.build(job_group_id: params[:job][:job_group_id])
-		i = 0
-		@job_columns.each do |column|
-			@job.job_column_contents.build(content: params[:job][:job_column_contents_attributes][:"#{i}"][:content], job_column_id: column.id)
-			i += 1
-		end
+		@job = @user.jobs.build(job_params)
 		if @job.save
 			flash[:success] = "Created new Posting"
 			redirect_to user_jobs_path
 		else
+			flash[:failure] = "Error"
 			render 'new'
 		end
 	end
@@ -67,7 +56,7 @@ class JobsController < UsersController
 			@job_group
 		end
 		def job_params
-			params.require(:job).permit(:id, :user_id, :job_group_id, :title, job_column_contents_attributes: [:id, :content, :job_id, :job_column_id]) 
+			params.require(:job).permit(:id, :user_id, :job_group_id, :position, :company, :location, :applied, :notes, :description, :link ) 
 		end
 		def job_content_params
 			params.permit(job_column_contents_attributes: [ id: [ :content,:job_column_id]])

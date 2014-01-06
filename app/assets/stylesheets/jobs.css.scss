@@ -12,12 +12,17 @@ ol.tree {
 
 
 	}
-	.edit-job a {
-		color: white;
+	.edit-job {
+		display: inline;
+		margin-left: 15px; 
+		a {
+			color: white;
+		}
 	}
 	tr:hover {
+		
 		.edit-job a {
-		color: blue;
+			color: blue;
 		}
 	}
 	

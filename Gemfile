@@ -6,10 +6,10 @@ gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'faker', '1.1.2'
 
-
 group :development, :test do
 	gem 'sqlite3'
 	gem 'rspec-rails', '2.13.1'
+	gem 'childprocess', '0.3.6'
 end
 
 group :test do

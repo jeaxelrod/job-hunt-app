@@ -9,21 +9,25 @@
 						<thead>
 							<tr>
 								<% @job_columns.each do |column| %>
-									<th><%= column.title %></th>
+									<th><%= column.titleize %></th>
 								<% end %>
 							</tr>
 						</thead>
 						<tbody>
 							<% group.jobs.each do |job| %>
 								<tr>
-									<% job.job_column_contents.each do |column| %>
-										<% if column.job_column_id == @job_columns.first.id %>
-											<td><%= link_to column.content, '#'; %></td>
+									<% @job_columns.each do |attribute| %>
+										<% if attribute == "position" %>
+											<td><%= link_to job.send(attribute.to_sym), '#' %></td>
+										<% elsif attribute == @last_column %>
+											<td>
+												<%= job.send(attribute.to_sym) %>
+												<p class="edit-job"><%= link_to 'Edit', edit_user_job_path( :id => job.id )%></p>
+											</td>
 										<% else %>
-											<td><%= column.content %></td>
+											<td><%= job.send(attribute.to_sym) %></td>
 										<% end %>
-									<% end %> 
-									<td class="edit-job"><%= link_to 'Edit', edit_user_job_path( :id => job.id )%></td>
+									<% end %>
 								</tr>
 							<% end %>
 							<tr>

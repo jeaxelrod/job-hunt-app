@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
 	before_action :signed_in_user, only: [:edit, :update, :destroy, :show]
 	before_action :correct_user,   only: [:edit, :update]
-	before_action :admin_user,     only: :destroy
-	before_action :non_signed_in_user, only: [:new, :create]
+ 	before_action :non_signed_in_user, only: [:new, :create]
 
 	def show
 		@user = User.find(params[:id])
@@ -34,11 +33,6 @@ class UsersController < ApplicationController
 			
 			@user.job_groups.create(name: "Interested")
 			@user.job_groups.create(name: "Applied")
-			
-			@user.job_columns.create(title: "Position")
-			@user.job_columns.create(title: "Company" )
-			@user.job_columns.create(title: "Applied?")
-			@user.job_columns.create(title: "Date Added")
 			
 			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user

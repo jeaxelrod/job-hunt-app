@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131219214516) do
+ActiveRecord::Schema.define(version: 20140106222950) do
 
   create_table "job_groups", force: true do |t|
     t.datetime "created_at"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20131219214516) do
     t.boolean  "applied"
     t.string   "notes"
     t.string   "description"
+    t.string   "link"
   end
 
   add_index "jobs", ["user_id", "created_at"], name: "index_jobs_on_user_id_and_created_at"
