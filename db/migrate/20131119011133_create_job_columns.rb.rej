@@ -1,0 +1,11 @@
+diff a/db/migrate/20131119011133_create_job_columns.rb b/db/migrate/20131119011133_create_job_columns.rb	(rejected hunks)
+@@ -1,9 +0,0 @@
+-class CreateJobColumns < ActiveRecord::Migration
+-  def change
+-    create_table :job_columns do |t|
+-      t.integer :job_id
+-
+-      t.timestamps
+-    end
+-  end
+-end
