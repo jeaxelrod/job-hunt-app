@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20140106222950) do
 
+  create_table "job_columns", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "job_groups", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
