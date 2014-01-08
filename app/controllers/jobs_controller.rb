@@ -45,7 +45,11 @@ class JobsController < UsersController
 			render 'new'
 		end
 	end
-
+	
+	def show
+		@user = User.find(params[:user_id])
+		@job = Job.find(params[:id])
+	end
 	
 	private
 	

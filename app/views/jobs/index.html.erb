@@ -1,6 +1,5 @@
 	<div class="content">
 		<h1>Jobs</h1>
-		<p class="edit-link"><%= link_to "Edit", '#' %></p>
 		<ol class="tree">
 			<% @job_groups.each do |group| %>
 				<li class="jobs">
@@ -18,11 +17,15 @@
 								<tr>
 									<% @job_columns.each do |attribute| %>
 										<% if attribute == "position" %>
-											<td><%= link_to job.send(attribute.to_sym), '#' %></td>
+											<% if job.send(attribute.to_sym) != "" %>
+												<td><%= link_to job.send(attribute.to_sym), user_job_path(:id => job.id) %></td>
+											<% else %>
+												<td><%= link_to 'Unknown Position', user_job_path(:id => job.id) %></td>
+											<% end %>
 										<% elsif attribute == @last_column %>
 											<td>
 												<%= job.send(attribute.to_sym) %>
-												<p class="edit-job"><%= link_to 'Edit', edit_user_job_path( :id => job.id )%></p>
+												<p class="edit-job"><%= link_to 'Edit', edit_user_job_path(:id => job.id)%></p>
 											</td>
 										<% else %>
 											<td><%= job.send(attribute.to_sym) %></td>

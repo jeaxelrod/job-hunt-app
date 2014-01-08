@@ -9,8 +9,9 @@ ol.tree {
 		list-style: none;
 		margin-left: -15px;
 		
-
-
+		table {
+			font-size: 1.5em;
+		}
 	}
 	.edit-job {
 		display: inline;
@@ -35,4 +36,49 @@ ol.tree {
 	}
 }
 
+/* Job Profile */
 
+.wrapper {
+	margin: 0;
+}
+
+.title {
+	margin-top: 50px;
+	text-align: center;
+
+	h1 {
+		font-size: 6em;
+		margin: 0;
+	}
+}
+
+.subheader {
+	font-size: 2em;
+	margin: 0;
+}
+
+#job-content {
+	margin: 50px 180px 0 180px;
+
+	h2 {
+		font-size: 3em;
+		font-weight: normal;
+		margin: 20px 0 20px 0;
+
+		.applied {
+			color: green
+		}
+		.not-applied {
+			color: blue;
+		}
+	}
+}
+
+#job-description {
+	font-size: 2em;
+	margin: 0 90px 0 90px;
+}
+#job-notes {
+	margin: 0 90px 0 90px;
+	font-size: 2em;
+}

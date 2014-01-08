@@ -1,0 +1,44 @@
+<div class="wrapper">
+	<div class="title">
+		<% if @job.position && @job.position !="" %>
+			<h1><%= @job.position %></h1>
+		<% else %>
+			<h1>Insert Position Title...</h1>
+		<% end %>
+		<% if @job.company && @job.company != "" %>
+			<p class="subheader"><%= @job.company %></p>
+		<% else %>
+			<p class="subheader">Insert Company...</p>
+		<% end %>
+		<% if @job.location && @job.location != "" %>
+			<p class="subheader"><%= @job.location %></p>
+		<% else %>
+			<p class="subheader">Insert Location ...</p>
+		<% end %>
+	</div>
+	<div id="job-content">
+		<h2>Status:
+			<% if @job.applied %>
+				<span class="applied">Applied</span>
+			<% else %>
+				<span class="not-applied">Interested</span>
+			<% end %>
+		</h2>
+		<h2>Description:</h2>
+			<div id="job-description">
+				<% if @job.description %>
+					<p>Copy paste job add ...</p>
+				<% else %>
+					<p><%= @job.description %></p>
+				<% end %>
+			</div>
+		<h2>Notes:</h2>
+			<div id="job-notes">
+				<% if @job.notes %>
+					<p>Put your notes here</p>
+				<% else %>
+					<p><%= @job.notes %></p>
+				<% end %>
+			</div>
+	</div>
+</div>
