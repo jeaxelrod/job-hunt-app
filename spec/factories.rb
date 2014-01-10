@@ -14,7 +14,6 @@ FactoryGirl.define do
 		company "Orange"
 		location "Mountain View, CA"
 		applied "False"
-		date_applied "12/23/2013"
 		user
 		job_group
 	end

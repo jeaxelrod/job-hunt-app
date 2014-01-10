@@ -9,6 +9,7 @@ class JobsController < UsersController
 		@job_groups = @user.job_groups
 		@job_columns = ["position", "company", "applied", "description", "link", "notes" ]
 		@last_column = @job_columns.last
+		store_location
 	end
 	
 	def edit
@@ -21,7 +22,7 @@ class JobsController < UsersController
 		@job = Job.find(params[:id])
 		if @job.update_attributes(job_params)
 			flash[:success] = "Job Updated"
-			redirect_to user_jobs_path
+			redirect_back_or 'index'
 		else
 			render 'edit'
 		end
@@ -49,6 +50,7 @@ class JobsController < UsersController
 	def show
 		@user = User.find(params[:user_id])
 		@job = Job.find(params[:id])
+		store_location
 	end
 	
 	private
@@ -56,9 +58,7 @@ class JobsController < UsersController
 		def set_instance_job_group(group)
 			@job_group = group
 		end
-		def job_group 
-			@job_group
-		end
+
 		def job_params
 			params.require(:job).permit(:id, :user_id, :job_group_id, :position, :company, :location, :applied, :notes, :description, :link ) 
 		end
@@ -71,4 +71,5 @@ class JobsController < UsersController
 		end
 		def non_signed_in_user 
 		end
+		
 end

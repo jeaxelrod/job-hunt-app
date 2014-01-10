@@ -1,4 +1,7 @@
 <div class="wrapper">
+	<div class="edit-link">
+		<%= link_to 'Edit', edit_user_job_path %>
+	</div>
 	<div class="title">
 		<% if @job.position && @job.position !="" %>
 			<h1><%= @job.position %></h1>

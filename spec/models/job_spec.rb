@@ -8,7 +8,10 @@ describe Job do
 	subject{ @job }
 	
 	it { should respond_to(:user_id) }
+	it { should respond_to(:job_group_id) }
 	its(:user) { should eq user }
+	its(:job_group_id) { should eq job_group.id }
+	its(:job_group_id) { should_not eq nil }
 	
 	it { should be_valid }
 	
