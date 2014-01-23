@@ -68,5 +68,26 @@ describe "Job pages" do
 	end
 		
 	describe "creating new job" do
+		describe "links" do
+			before do
+				sign_in user
+				visit new_user_job_path(user_id: user.id, job_group_id: job_group.id)
+				fill_in "Link", with: "www.google.com"
+				click_button "Create Posting"
+			end
+			
+			it { should have_link('google.com', href='http://www.google.com') }
+		end
+	
+		describe "link with http in it" do
+			before do
+				sign_in user
+				visit new_user_job_path(user_id: user.id, job_group_id: job_group.id)
+				fill_in "Link", with: "http://www.google.com"
+				click_button "Create Posting" 
+			end
+			
+				it { should have_link('google.com', href='http://www.google.com') }
+		end
 	end
 end

@@ -19,4 +19,5 @@ describe Job do
 		before { @job.user_id = nil }
 		it { should_not be_valid }
 	end
+	
 end

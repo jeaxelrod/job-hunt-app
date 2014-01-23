@@ -1,6 +1,7 @@
 class JobsController < UsersController
 	#before_action :signed_in_user, only: [:index]
 	before_action :correct_user, only: [:index]
+	# valid link params[:job][:link] =~ /^#{URI::regexp}$/
 
 	
 	def index
@@ -20,6 +21,11 @@ class JobsController < UsersController
 	def update
 		@user = User.find(params[:user_id])
 		@job = Job.find(params[:id])
+		link = params[:job][:link]
+		#Adds http:// to non_blank links with a resonable domain name
+		if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/] 
+			link.insert(0, 'http://')
+		end
 		if @job.update_attributes(job_params)
 			flash[:success] = "Job Updated"
 			redirect_back_or 'index'
@@ -38,6 +44,11 @@ class JobsController < UsersController
 	def create 
 		@user = User.find(params[:user_id])
 		@job = @user.jobs.build(job_params)
+		link = params[:job][:link]
+		#Adds http:// to non_blank links with a resonable domain name
+		if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/]
+			link.insert(0, 'http://')
+		end
 		if @job.save
 			flash[:success] = "Created new Posting"
 			redirect_to user_jobs_path

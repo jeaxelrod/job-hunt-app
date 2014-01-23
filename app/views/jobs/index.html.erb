@@ -16,19 +16,22 @@
 							<% group.jobs.each do |job| %>
 								<tr>
 									<% @job_columns.each do |attribute| %>
+										<% value = job.send(attribute.to_sym) %>
 										<% if attribute == "position" %>
-											<% if job.send(attribute.to_sym) != "" %>
-												<td><%= link_to job.send(attribute.to_sym), user_job_path(:id => job.id) %></td>
+											<% if value != "" %>
+												<td><%= link_to value, user_job_path(:id => job.id) %></td>
 											<% else %>
 												<td><%= link_to 'Unknown Position', user_job_path(:id => job.id) %></td>
 											<% end %>
+										<% elsif attribute == 'link' && value != nil && value != "" %>
+											<td><%= link_to value.split("http://")[-1], value %></td>
 										<% elsif attribute == @last_column %>
 											<td>
-												<%= job.send(attribute.to_sym) %>
+												<%= value %>
 												<p class="edit-job"><%= link_to 'Edit', edit_user_job_path(:id => job.id)%></p>
 											</td>
 										<% else %>
-											<td><%= job.send(attribute.to_sym) %></td>
+											<td><%= value %></td>
 										<% end %>
 									<% end %>
 								</tr>

@@ -27,20 +27,25 @@
 				<span class="not-applied">Interested</span>
 			<% end %>
 		</h2>
+		<h2>Link: 
+			<% if @job.link != nil && @job.link != "" %>
+				<%= link_to @job.link.split('http://')[-1], @job.link %>
+			<% end %>
+		</h2>
 		<h2>Description:</h2>
 			<div id="job-description">
-				<% if @job.description %>
-					<p>Copy paste job add ...</p>
-				<% else %>
+				<% if @job.description && @job.description != "" %>
 					<p><%= @job.description %></p>
+				<% else %>
+					<p>Copy paste job ad ...</p>
 				<% end %>
 			</div>
 		<h2>Notes:</h2>
 			<div id="job-notes">
-				<% if @job.notes %>
-					<p>Put your notes here</p>
-				<% else %>
+				<% if @job.notes && @job.notes != "" %>
 					<p><%= @job.notes %></p>
+				<% else %>
+					<p>Put your notes here</p>
 				<% end %>
 			</div>
 	</div>
