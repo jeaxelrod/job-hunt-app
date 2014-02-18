@@ -6,6 +6,7 @@ class Job < ActiveRecord::Base
 	validates :job_group_id, presence: true
 	validates_format_of :link, allow_nil: true, allow_blank: true,
 		with: /\A#{URI::regexp}\z/
+		
 end
 
 
