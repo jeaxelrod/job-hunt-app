@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :job_group
+	has_many :job_uploads, dependent: :destroy
 	default_scope -> { order('created_at DESC') }
 	validates :user_id, presence: true
 	validates :job_group_id, presence: true

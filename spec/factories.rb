@@ -21,4 +21,10 @@ FactoryGirl.define do
 		name "Internships"
 		user
 	end
+	factory :job_upload do
+		sequence(:upload_file_name) { |n| "resume#{n}"}
+		upload_content_type "doc"
+		upload_file_size 134
+		upload_updated_at DateTime.now
+	end
 end
