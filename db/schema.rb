@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140107220222) do
+ActiveRecord::Schema.define(version: 20140227230108) do
 
   create_table "job_groups", force: true do |t|
     t.datetime "created_at"
