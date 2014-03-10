@@ -1,6 +1,6 @@
 <h1>Upload Document</h1>
 <div class="form">
-  <%= form_for @job_upload, url: job_job_uploads_path do |f| %>
+  <%= form_for @job_upload, url: job_job_uploads_path, multipart: true do |f| %>
 	  
 		<p>
 		  <label for="upload-file">Select File:</label> 
