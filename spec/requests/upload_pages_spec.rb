@@ -15,7 +15,26 @@ describe "Upload functionality" do
 		end
 		
 		it { should have_content('Upload') }
+	
+	  describe "and then uploading a file with the wrong format" do
+	    before do
+			  attach_file 'job_upload_upload', Rails.root.join('spec/fixtures/files/test.txt')
+				click_button 'Upload'
+			end
+			it "should not upload" do
+        expect(JobUpload.all.size).to eq(0) 
+			end
+		end
 		
+		describe "and then uploading a file" do
+		  before do
+			  attach_file 'job_upload_upload', Rails.root.join('spec/fixtures/files/test.doc')
+				click_button 'Upload'
+			end
+			it "should upload" do
+			  expect(JobUpload.all.size).to eq(1) 
+			end
+		end
 	end
 end
 		
