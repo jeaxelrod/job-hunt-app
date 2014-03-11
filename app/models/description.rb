@@ -1,3 +1,3 @@
-class JobDescription < ActiveRecord::Base
+class Description < ActiveRecord::Base
   belongs_to :job
 end

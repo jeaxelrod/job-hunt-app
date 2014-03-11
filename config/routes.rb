@@ -1,8 +1,8 @@
 JobApp::Application.routes.draw do
-	resources :job_groups do
+	resources :groups do
 		resources :jobs
 	end
-	resources :job_groups
+	resources :groups
 	resources :sessions, only: [:new, :create, :destroy]
 
 	

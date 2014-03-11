@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe JobGroupsController do
+describe GroupsController do
 
 end

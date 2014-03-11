@@ -1,4 +1,4 @@
-class JobGroupsController < ApplicationController
+class GroupsController < ApplicationController
   def index
 	  @jobs = current_user.jobs
 		@groups = current_user.groups

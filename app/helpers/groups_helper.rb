@@ -1,2 +1,2 @@
-module JobGroupsHelper
+module GroupsHelper
 end
