@@ -11,9 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227230108) do
+ActiveRecord::Schema.define(version: 20140311212416) do
 
-  create_table "job_groups", force: true do |t|
+  create_table "categorizations", force: true do |t|
+    t.integer  "job_group_id"
+    t.integer  "job_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "descriptions", force: true do |t|
+    t.string   "content"
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "job_id"
+  end
+
+  create_table "groups", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
@@ -25,7 +40,6 @@ ActiveRecord::Schema.define(version: 20140227230108) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "position"
-    t.integer  "job_group_id"
     t.string   "company"
     t.string   "location"
     t.date     "date_applied"

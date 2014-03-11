@@ -15,10 +15,14 @@ FactoryGirl.define do
 		location "Mountain View, CA"
 		applied "False"
 		user
-		job_group
 	end
 	factory :job_group do
 		name "Internships"
 		user
+	end
+	factory :job_description do
+	  sequence(:category) { |n| "Category #{n}" }
+		sequence(:content) { |n| "Content #{n}" }
+		job
 	end
 end

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+ 
+  attr_accessor :job_description_catagories 
+	
 	before_save { self.username = username.downcase }
 	before_create :create_remember_token
 	validates :username, presence: true, length: { maximum: 50 }, 
@@ -7,8 +10,10 @@ class User < ActiveRecord::Base
 	has_secure_password
 	has_many :jobs, dependent: :destroy
 	has_many :job_groups, dependent: :destroy
+	has_many :job_descriptions, through: :jobs
 	accepts_nested_attributes_for :jobs
 
+	
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64
 	end
@@ -23,17 +28,3 @@ class User < ActiveRecord::Base
 			self.remember_token = User.encrypt(User.new_remember_token)
 		end
 end
-
-# == Schema Information
-#
-# Table name: user
-#
-# id              :integer     not null, primary key
-# username        :string		   not null
-# password_digest :string			 not null
-# name            :string     
-# admin           :boolean		 default(false) not null
-# remember_token  :string
-# created_at      :datetime    not null
-# updated_at      :datetime    not null
-#

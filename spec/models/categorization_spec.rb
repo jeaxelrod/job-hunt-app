@@ -1,24 +1,17 @@
 require 'spec_helper'
 
-describe Job do
+describe Categorization do
   let!(:user) { FactoryGirl.create(:user) }
 	let!(:job_group) { FactoryGirl.create(:job_group, user_id: user.id) }
 	let!(:job) { FactoryGirl.create(:job, user_id: user.id) }
-
+	let!(:category) { Categorization.create(job_id: job.id, job_group_id: job_group.id) }
 	
+	subject { category }
 	
-	
-	subject{ job }
-	
-	it { should respond_to(:user_id) }
-
-	its(:user) { should eq user }
+	its(:job_id) { should eq(job.id) }
+	its(:job_group_id) { should eq(job_group.id) }
 	
 	it { should be_valid }
-	
-	describe "when user_id is not present" do
-		before { job.user_id = nil }
-		it { should_not be_valid }
-	end
+
 	
 end
