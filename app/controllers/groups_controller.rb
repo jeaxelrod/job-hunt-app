@@ -1,7 +1,7 @@
 class JobGroupsController < ApplicationController
   def index
 	  @jobs = current_user.jobs
-		@job_groups = current_user.job_groups
+		@groups = current_user.groups
 	end
 	
 	def show

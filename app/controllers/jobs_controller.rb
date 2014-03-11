@@ -7,7 +7,7 @@ class JobsController < UsersController
 	def index
 		@user = User.find(params[:user_id])
 		@jobs = @user.jobs
-		@job_groups = @user.job_groups
+		@groups = @user.groups
 		@job_columns = ["position", "company", "applied", "description", "link", "notes" ]
 		@last_column = @job_columns.last
 		store_location
@@ -36,9 +36,9 @@ class JobsController < UsersController
 	
 	def new
 		@user = User.find(params[:user_id])
-		@job_group = @user.job_groups.find(params[:job_group_id])
-		set_instance_job_group(@job_group)
-		@job = @user.jobs.build(job_group_id: @job_group.id)
+		@group = @user.groups.find(params[:job_group_id])
+		set_instance_job_group(@group)
+		@job = @user.jobs.build(job_group_id: @group.id)
 	end
 	
 	def create 
@@ -67,7 +67,7 @@ class JobsController < UsersController
 	private
 	
 		def set_instance_job_group(group)
-			@job_group = group
+			@group = group
 		end
 
 		def job_params

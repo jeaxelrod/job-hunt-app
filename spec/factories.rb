@@ -16,11 +16,11 @@ FactoryGirl.define do
 		applied "False"
 		user
 	end
-	factory :job_group do
+	factory :group do
 		name "Internships"
 		user
 	end
-	factory :job_description do
+	factory :description do
 	  sequence(:category) { |n| "Category #{n}" }
 		sequence(:content) { |n| "Content #{n}" }
 		job

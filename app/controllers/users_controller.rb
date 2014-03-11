@@ -31,8 +31,8 @@ class UsersController < ApplicationController
 		if @user.save
 			sign_in @user
 			
-			@user.job_groups.create(name: "Interested")
-			@user.job_groups.create(name: "Applied")
+			@user.groups.create(name: "Interested")
+			@user.groups.create(name: "Applied")
 			
 			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Job do
   let!(:user) { FactoryGirl.create(:user) }
-	let!(:job_group) { FactoryGirl.create(:job_group, user_id: user.id) }
-	let!(:job) { FactoryGirl.create(:job, user_id: user.id) }
+	let!(:group) { FactoryGirl.create(:group, user: user) }
+	let!(:job) { FactoryGirl.create(:job, user: user) }
 
 	
 	

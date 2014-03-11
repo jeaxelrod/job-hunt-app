@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe JobDescription do
+describe Description do
 
   let!(:user) { FactoryGirl.create(:user) }
-	let!(:job_group) { FactoryGirl.create(:job_group, user_id: user.id) }
-	let!(:job) { FactoryGirl.create(:job, user_id: user.id) }
-	let!(:description) { FactoryGirl.create(:job_description, job_id: job.id) }
+	let!(:group) { FactoryGirl.create(:group, user: user) }
+	let!(:job) { FactoryGirl.create(:job, user: user) }
+	let!(:description) { FactoryGirl.create(:description, job: job) }
 	
 	subject { description }
 	

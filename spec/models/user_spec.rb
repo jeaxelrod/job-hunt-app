@@ -15,7 +15,7 @@ describe User do
 	it { should respond_to(:name) }
 	it { should respond_to(:admin) }
 	it { should respond_to(:jobs) }
-	it { should respond_to(:job_groups) }
+	it { should respond_to(:groups) }
 	
 	it { should be_valid }
 	it { should_not be_admin }
@@ -93,13 +93,13 @@ describe User do
 	describe "job associations" do
 		
 		before { @user.save }
-		let(:job_group) { FactoryGirl.create(:job_group, user: @user) }
+		let(:group) { FactoryGirl.create(:group, user: @user) }
 		let!(:older_job) do
-			FactoryGirl.create(:job, user: @user, job_group: job_group, 
+			FactoryGirl.create(:job, user: @user, group: group, 
 												 created_at: 1.day.ago)
 		end
 		let!(:newer_job) do
-			FactoryGirl.create(:job, user: @user, job_group: job_group, 
+			FactoryGirl.create(:job, user: @user, group: group, 
 												 created_at: 1.hour.ago)
 		end
 		

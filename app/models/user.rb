@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
- 
-  attr_accessor :job_description_catagories 
 	
 	before_save { self.username = username.downcase }
 	before_create :create_remember_token
@@ -9,8 +7,8 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }
 	has_secure_password
 	has_many :jobs, dependent: :destroy
-	has_many :job_groups, dependent: :destroy
-	has_many :job_descriptions, through: :jobs
+	has_many :groups, dependent: :destroy
+	has_many :descriptions, through: :jobs
 	accepts_nested_attributes_for :jobs
 
 	
