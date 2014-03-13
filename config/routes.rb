@@ -2,8 +2,10 @@ JobApp::Application.routes.draw do
 	resources :groups do
 		resources :jobs
 	end
+  resources :jobs
 	resources :groups
 	resources :sessions, only: [:new, :create, :destroy]
+  resources :users
 
 	
 	root 'static_pages#home', :controller=>"sessions"

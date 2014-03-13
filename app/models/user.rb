@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	
+	serialize :categories, Array
 	before_save { self.username = username.downcase }
 	before_create :create_remember_token
 	validates :username, presence: true, length: { maximum: 50 }, 
@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 	has_many :jobs, dependent: :destroy
 	has_many :groups, dependent: :destroy
 	has_many :descriptions, through: :jobs
+	has_many :categorizations, through: :jobs
 	accepts_nested_attributes_for :jobs
 
 	

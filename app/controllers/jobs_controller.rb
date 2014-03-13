@@ -1,15 +1,21 @@
 class JobsController < UsersController
-	#before_action :signed_in_user, only: [:index]
-	before_action :correct_user, only: [:index]
+	before_action :signed_in_user
 	# valid link params[:job][:link] =~ /^#{URI::regexp}$/
 
 	
 	def index
-		@user = User.find(params[:user_id])
-		@jobs = @user.jobs
-		@groups = @user.groups
-		@job_columns = ["position", "company", "applied", "description", "link", "notes" ]
-		@last_column = @job_columns.last
+		@groups = current_user.groups
+		@selected_group = Group.find(params[:group_id]) if params[:group_id]
+		if @selected_group
+		  categorizations = current_user.categorizations.where(group_id: @selected_group.id)
+			@jobs = Array.new
+			categorizations.each do |categorization|
+			  @jobs << Job.find(categorization.job_id)
+			end
+		else
+		  @jobs = current_user.jobs
+		end
+		@columns = current_user.categories
 		store_location
 	end
 	
@@ -65,6 +71,13 @@ class JobsController < UsersController
 	end
 	
 	private
+
+		def signed_in_user
+			unless signed_in?
+				store_location
+				redirect_to root_url, notice: "Please sign in." 
+			end
+		end
 	
 		def set_instance_job_group(group)
 			@group = group

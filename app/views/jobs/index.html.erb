@@ -1,47 +1,28 @@
-	<div class="content">
-		<h1>Jobs</h1>
-		<ol class="tree">
-			<% @job_groups.each do |group| %>
-				<li class="jobs">
-					<h2 class="job-groups"><%= group.name %></h2>
-					<table>
-						<thead>
-							<tr>
-								<% @job_columns.each do |column| %>
-									<th><%= column.titleize %></th>
-								<% end %>
-							</tr>
-						</thead>
-						<tbody>
-							<% group.jobs.each do |job| %>
-								<tr>
-									<% @job_columns.each do |attribute| %>
-										<% value = job.send(attribute.to_sym) %>
-										<% if attribute == "position" %>
-											<% if value != "" %>
-												<td><%= link_to value, user_job_path(:id => job.id) %></td>
-											<% else %>
-												<td><%= link_to 'Unknown Position', user_job_path(:id => job.id) %></td>
-											<% end %>
-										<% elsif attribute == 'link' && value != nil && value != "" %>
-											<td><%= link_to value.split("http://")[-1], value %></td>
-										<% elsif attribute == @last_column %>
-											<td>
-												<%= value %>
-												<p class="edit-job"><%= link_to 'Edit', edit_user_job_path(:id => job.id)%></p>
-											</td>
-										<% else %>
-											<td><%= value %></td>
-										<% end %>
-									<% end %>
-								</tr>
-							<% end %>
-							<tr>
-								<td><%= link_to "New", new_user_job_path(job_group_id: group) %></td>
-							<tr>
-						</tbody>
-					</table>
-				</li>
+<%= render 'left_navagation' %>
+<div>
+  <% if @selected_group %>
+	  <h1><%= @selected_group.name.titleize %> Jobs</h1>
+	<% else %>
+	  <h1>All Jobs</h1>
+	<% end %>
+</div>
+
+<table>
+  <thead>
+	  <tr>
+	    <% @columns.each do |column| %>
+			  <th><%= column.titleize %></th>
 			<% end %>
-		</ol>
-	</div>
+		</tr> 
+	</thead>
+	<tbody>
+	  <% @jobs.each do |job| %>
+		  <tr>
+			  <% @columns.each do |column| %>
+				  <% description = job.descriptions.find_by_category(column) %>
+					<td><%= description.content %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

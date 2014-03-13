@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 	belongs_to :user
-	has_many :description, dependent: :destroy
+	has_many :descriptions, dependent: :destroy
 	has_many :categorizations
   has_many	:groups, through: :categorizations
 	default_scope -> { order('created_at DESC') }
