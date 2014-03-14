@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="small-6 small-centered columns" >
+	  <div id="index-title">
+			<h1 id="title">Folio</h1>
+			<p id="slogan">Organizing the job search</p>
+		</div>
+	<% unless signed_in? %>
+	  <div class="row">
+			<%= form_for(:session, url: sessions_path) do |f| %> 
+				<div class="large-5 columns">
+					<%= f.text_field :username, placeholder: 'Username' %>
+				</div>
+				<div class="large-5 columns">
+					<%= f.password_field :password, placeholder: 'Password' %>
+				</div>
+				<div class="large-2 columns">
+					<%= f.submit 'Sign in' %>
+				</div>
+			<% end %>
+				</div>
+				<div class="row">
+				  <div class="large-4 large-centered columns">
+						<%= link_to "Create an account", signup_path %>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

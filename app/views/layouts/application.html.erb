@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><%= content_for?(:title) ? yield(:title) : "Folio" %></title>
-
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
-		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-	  <div class="row">
-	    <%= render 'shared/header' %>
-		</div>
-		<div class="row">
+	  <%= render 'shared/header' %>
+		<div class="container">
 		  <% flash.each do |key, value| %>
 			  <div class="alert alert-<%= key %>"><%= value %></div>
 			<% end %>
@@ -24,5 +21,6 @@
       <%= yield %>
     </div>
 		<%= debug(params) if Rails.env.development? %>
+		<%= javascript_include_tag "application" %>
   </body>
 </html>

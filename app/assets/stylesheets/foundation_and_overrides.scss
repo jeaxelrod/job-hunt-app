@@ -26,7 +26,7 @@
 // $base-line-height: 150%;
 
 // We use this to control whether or not CSS classes come through in the gem files.
-// $include-html-classes: true;
+$include-html-classes: true;
 // $include-print-styles: true;
 // $include-html-global-classes: $include-html-classes;
 
@@ -127,7 +127,7 @@
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
+// $h1-font-size: rem-calc(60);
 // $h2-font-size: rem-calc(37);
 // $h3-font-size: rem-calc(27);
 // $h4-font-size: rem-calc(23);
@@ -281,7 +281,7 @@
 
 // Breadcrumbs
 
-// $include-html-nav-classes: $include-html-classes;
+$include-html-nav-classes: $include-html-classes;
 
 // We use this to set the background color for the breadcrumb container.
 // $crumb-bg: scale-color($secondary-color, $lightness: 55%);
@@ -962,30 +962,30 @@
 // $include-html-nav-classes: $include-html-classes;
 
 // We use these to control margin and padding
-// $sub-nav-list-margin: rem-calc(-4 0 18);
-// $sub-nav-list-padding-top: rem-calc(4);
+$sub-nav-list-margin: rem-calc(-4 0 18);
+$sub-nav-list-padding-top: rem-calc(4);
 
 // We use this to control the definition
 // $sub-nav-font-family: $body-font-family;
 // $sub-nav-font-size: rem-calc(14);
-// $sub-nav-font-color: #999;
-// $sub-nav-font-weight: normal;
-// $sub-nav-text-decoration: none;
-// $sub-nav-border-radius: 3px;
+$sub-nav-font-color: #999;
+$sub-nav-font-weight: normal;
+$sub-nav-text-decoration: none;
+$sub-nav-border-radius: 3px;
 // $sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: -25%);
 
 
 // We use these to control the active item styles
 
-// $sub-nav-active-font-weight: normal;
+$sub-nav-active-font-weight: normal;
 // $sub-nav-active-bg: $primary-color;
 // $sub-nav-active-bg-hover: scale-color($sub-nav-active-bg, $lightness: -14%);
-// $sub-nav-active-color: #fff;
-// $sub-nav-active-padding: rem-calc(3 16);
-// $sub-nav-active-cursor: default;
+$sub-nav-active-color: #fff;
+$sub-nav-active-padding: rem-calc(3 16);
+$sub-nav-active-cursor: default;
 
-// $sub-nav-item-divider: "";
-// $sub-nav-item-divider-margin: rem-calc(12);
+$sub-nav-item-divider: "";
+$sub-nav-item-divider-margin: rem-calc(12);
 
 //
 // SWITCH

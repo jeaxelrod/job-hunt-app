@@ -1,28 +1,35 @@
-<%= render 'left_navagation' %>
-<div>
-  <% if @selected_group %>
-	  <h1><%= @selected_group.name.titleize %> Jobs</h1>
-	<% else %>
-	  <h1>All Jobs</h1>
-	<% end %>
-</div>
+<div class="row">
 
-<table>
-  <thead>
-	  <tr>
-	    <% @columns.each do |column| %>
-			  <th><%= column.titleize %></th>
-			<% end %>
-		</tr> 
-	</thead>
-	<tbody>
-	  <% @jobs.each do |job| %>
-		  <tr>
-			  <% @columns.each do |column| %>
-				  <% description = job.descriptions.find_by_category(column) %>
-					<td><%= description.content %></td>
-				<% end %>
-			</tr>
+	<div class="large-10 large-offset-2 columns">
+		<% if @selected_group %>
+			<h1><%= @selected_group.name.titleize %> Jobs</h1>
+		<% else %>
+			<h1>All Jobs</h1>
 		<% end %>
-	</tbody>
-</table>
+	</div>
+</div>
+<div class="row">
+	<div class="small-2 columns">
+    <%= render 'left_navagation' %>
+	</div>
+	<div class="large-10 columns">
+	<table>
+		<thead>
+			<tr>
+				<% @columns.each do |column| %>
+					<th><%= column.titleize %></th>
+				<% end %>
+			</tr> 
+		</thead>
+		<tbody>
+			<% @jobs.each do |job| %>
+				<tr>
+					<% @columns.each do |column| %>
+						<% description = job.descriptions.find_by_category(column) %>
+						<td><%= description.content %></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>  
+</div>

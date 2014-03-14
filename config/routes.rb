@@ -8,7 +8,7 @@ JobApp::Application.routes.draw do
   resources :users
 
 	
-	root 'static_pages#home', :controller=>"sessions"
+	root 'static_pages#index', :controller=>"sessions"
 	match '/contact', to: 'static_pages#contact', via: 'get'
 	match '/signup',  to: 'users#new',            via: 'get'
 	match '/signout', to: 'sessions#destroy',     via: 'delete'

@@ -1,16 +1,17 @@
-<div>
-  <ul>
-	  <% unless @selected_group %>
-		  <li><%= link_to 'All', jobs_path, class:'highlighted' %></li>
+<ul class="side-nav">
+	<dl class="sub-nav">
+		<dt>Groups:</dt>
+		<% unless @selected_group %>
+			<dd><%= link_to 'All', jobs_path, class:'active' %></dd>
 		<% else %>
-	    <li><%= link_to 'All', jobs_path %></li>
+			<dd><%= link_to 'All', jobs_path %></dd>
 		<% end %>
-	  <% @groups.each do |group| %>
-		  <% if group == @selected_group %>
-			  <li><%= link_to group.name, group_jobs_path(group), class:"highlighted" %></li>
+		<% @groups.each do |group| %>
+			<% if group == @selected_group %>
+				<dd><%= link_to group.name.titleize, group_jobs_path(group), class:"active" %></dd>
 			<% else %>
-			  <li><%= link_to group.name, group_jobs_path(group)  %></li>
+				<dd><%= link_to group.name.titleize, group_jobs_path(group)  %></dd>
 			<% end %>
 		<% end %>
-	</ul>
-</div>
+	</dl>
+</ul>
