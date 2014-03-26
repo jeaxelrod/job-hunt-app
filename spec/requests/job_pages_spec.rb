@@ -4,12 +4,14 @@ describe "Job pages" do
 	
 	subject { page }
 	
-	let(:user) { FactoryGirl.create(:user) }
-	let(:job_group) { FactoryGirl.create(:job_group, user: user) }
-	let!(:job) { FactoryGirl.create(:job, user: user, job_group: job_group) }
+	let!(:user) { FactoryGirl.create(:user, categories: ['category']) }
+	let!(:group) { FactoryGirl.create(:group, user: user) }
+	let!(:job) { FactoryGirl.create(:job, user: user) }
+	let!(:description) { FactoryGirl.create(:description, job: job, content: "content", category: "category") }
+	let!(:category) { Categorization.create(job: job, group: group) }
 		
 	describe "visiting job index without signing in" do
-		before { visit user_jobs_path(user_id: user.id) }
+		before { visit jobs_path }
 
 		it { should have_content('Folio') }
 	end
@@ -17,28 +19,14 @@ describe "Job pages" do
 	describe "visiting job index" do
 		before do
 			sign_in user
-			visit user_jobs_path( user_id: user.id)
+			visit jobs_path
 		end
 		
-		it { should have_content('Jobs') }
-		it { should have_content('Position') }
-		it { should have_content('Company') }
-		it { should have_content('Applied') }
-		it { should have_content('Link') }
-		it { should have_content('Notes') }
-	
-		describe "job groups" do
-			it { should have_content(job_group.name) }
-		end
-	
-		describe "job column contents" do
-			it { should have_content(job.position) }
-			it { should have_content(job.company) }
-			it { should have_content(job.applied) }
-			it { should have_content(job.description) }
-			it { should have_content(job.notes) }
-		end
-	end
+		it { should have_link(group.name.titleize) }
+		it { should have_link("All") }
+		it { should have_content(description.content) }
+		it { should have_content(description.category.titleize) } 
+  end
 		
 	describe "edit page" do
 		let(:submit){ "Save changes" }

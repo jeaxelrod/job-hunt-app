@@ -1,7 +1,7 @@
 FactoryGirl.define do
 	factory :user do
-		sequence(:name) { |n| "Person #{n}" }
-		sequence(:username) { |n| "person-#{n}" }
+		name  "Person"
+		username "person"
 		password "foobar"
 		password_confirmation "foobar"
 		
@@ -10,7 +10,7 @@ FactoryGirl.define do
 		end
 	end
 	factory :job do
-		position "Jobs"
+		position "Position"
 		company "Orange"
 		location "Mountain View, CA"
 		applied "False"
@@ -21,8 +21,8 @@ FactoryGirl.define do
 		user
 	end
 	factory :description do
-	  sequence(:category) { |n| "Category #{n}" }
-		sequence(:content) { |n| "Content #{n}" }
+	  category "Category"
+		content "Content"
 		job
 	end
 end
