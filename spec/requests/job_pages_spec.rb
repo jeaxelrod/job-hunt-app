@@ -32,50 +32,68 @@ describe "Job pages" do
 		let(:submit){ "Save changes" }
 		before do
 			sign_in user
-			click_link "Jobs"
+			visit jobs_path
 			click_link "Edit"
 		end
 		
-		describe "it should back to page it was accessed from" do
+		describe "it should bring back to page it was accessed from" do
 			before { click_button submit}
 			
-			it { should have_content("Position") }
+			it { should have_link(group.name.titleize) }
+			it { should have_link("All") }
+			it { should have_content(description.content) }
+			it { should have_content(description.category.titleize) }	
 		end
 		
-		describe "when accessed from job profile" do
-			before do 
-				visit user_job_path(user_id: user.id, id: job.id) 
-				click_link "Edit"
+		describe "should save changes" do
+		  before do
+			  fill_in description.category.titleize, with: "Position"
+			  click_button submit
 			end
-			describe "should bring back to job profile page" do
-				before { click_button submit }
-				it { should_not have_content("Position") }
-			end
+			
+			it { should have_content "Position" }
 		end
+##		describe "when accessed from job profile" do
+#			before do 
+#				visit user_job_path(user_id: user.id, id: job.id) 
+#				click_link "Edit"
+#			end
+#			describe "should bring back to job profile page" do
+#				before { click_button submit }
+#				it { should_not have_content("Position") }
+#			end
+##		end
 			
 	end
 		
 	describe "creating new job" do
-		describe "links" do
-			before do
-				sign_in user
-				visit new_user_job_path(user_id: user.id, job_group_id: job_group.id)
-				fill_in "Link", with: "www.google.com"
-				click_button "Create Posting"
+		before do
+		  sign_in user
+			visit jobs_path
+			click_link "New"
+			user.categories.each do |field|
+			  fill_in field.titleize, with: "Position #{field}"
 			end
-			
-			it { should have_link('google.com', href='http://www.google.com') }
+			click_button "Create Posting"
 		end
-	
-		describe "link with http in it" do
-			before do
-				sign_in user
-				visit new_user_job_path(user_id: user.id, job_group_id: job_group.id)
-				fill_in "Link", with: "http://www.google.com"
-				click_button "Create Posting" 
-			end
-			
-				it { should have_link('google.com', href='http://www.google.com') }
-		end
+		
+	  it { should have_content "Position category" }
+		
 	end
+  
+  describe "creating a new job with a job group" do
+    before do
+      sign_in user
+      visit group_jobs_path(group_id: group.id)
+      click_link "New"
+      user.categories.each do |field|
+        fill_in field.titleize, with: "Position #{field}"
+      end
+      click_button "Create Posting"
+      click_link "All"
+      click_link group.name.titleize
+    end
+    
+    it { should have_content "Position category" }
+  end 
 end

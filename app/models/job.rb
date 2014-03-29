@@ -1,7 +1,9 @@
 class Job < ActiveRecord::Base
 	belongs_to :user
-	has_many :descriptions, dependent: :destroy
-	has_many :categorizations
+	has_many :descriptions, :dependent => :destroy, :inverse_of => :job 
+  accepts_nested_attributes_for :descriptions, allow_destroy: true
+	has_many :categorizations, :dependent => :destroy, :inverse_of => :job
+  accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many	:groups, through: :categorizations
 	default_scope -> { order('created_at DESC') }
 	validates :user_id, presence: true

@@ -28,8 +28,14 @@
 						<% description = job.descriptions.find_by_category(column) %>
 						<td><%= description.content %></td>
 					<% end %>
+				  <td>
+					  <p class="edit-job"><%= link_to 'Edit', edit_job_path(id: job.id) %></p>	
+				  </td>
 				</tr>
 			<% end %>
+			<tr>
+			  <td><%= link_to 'New', new_job_path(group_id: params[:group_id]) %></td>
+			</tr>
 		</tbody>
 	</table>  
 </div>

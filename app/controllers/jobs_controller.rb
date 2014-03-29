@@ -41,24 +41,31 @@ class JobsController < UsersController
 	end
 	
 	def new
-		@user = User.find(params[:user_id])
-		@group = @user.groups.find(params[:job_group_id])
-		set_instance_job_group(@group)
-		@job = @user.jobs.build(job_group_id: @group.id)
+    @job = current_user.jobs.build
+    if params[:group_id]
+		  @group = current_user.groups.find(params[:group_id]) if params[:group_id]
+      @categorization = @job.categorizations.build
+    end
+    @descriptions = Array.new
+    current_user.categories.each do |category|
+      @descriptions << @job.descriptions.build
+    end
 	end
 	
 	def create 
-		@user = User.find(params[:user_id])
-		@job = @user.jobs.build(job_params)
-		link = params[:job][:link]
+		@job = current_user.jobs.build(job_params)
 		#Adds http:// to non_blank links with a resonable domain name
-		if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/]
-			link.insert(0, 'http://')
-		end
-		if @job.save
-			flash[:success] = "Created new Posting"
-			redirect_to user_jobs_path
+		#if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/]
+			#link.insert(0, 'http://')
+		#end
+    if @job.save 
+			flash[:success] = "Created new posting"
+			redirect_to jobs_path
 		else
+      @descriptions = Array.new
+      current_user.categories.each do |category|
+        @descriptions << @job.descriptions.build
+      end
 			flash[:failure] = "Error"
 			render 'new'
 		end
@@ -84,14 +91,11 @@ class JobsController < UsersController
 		end
 
 		def job_params
-			params.require(:job).permit(:id, :user_id, :job_group_id, :position, :company, :location, :applied, :notes, :description, :link ) 
+			params.require(:job).permit(:id, :user_id, descriptions_attributes: [:id, :job_id, :category, :content],categorizations_attributes: [:id, :group_id, :job_id]) 
 		end
-		def job_content_params
+
+    def job_content_params
 			params.permit(job_column_contents_attributes: [ id: [ :content,:job_column_id]])
-		end
-		def correct_user
-			@user = User.find(params[:user_id])
-			redirect_to(root_url) unless current_user?(@user)
 		end
 		def non_signed_in_user 
 		end
