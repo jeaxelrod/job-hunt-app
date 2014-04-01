@@ -20,8 +20,19 @@ class JobsController < UsersController
 	end
 	
 	def edit
-		@user = User.find(params[:user_id])
-		@job = Job.find(params[:id])
+
+		  @job = current_user.jobs.find(params[:id])
+      if @job.categorizations
+        @categorizations = @job.categorizations
+        counter = @job.categorizations.length - current_user.groups.length
+        counter.times do
+          @categorizations << @job.categorizations.build 
+        end
+      else
+        Group.all.length.times { @categorization = @job.categorizations.build }
+      end
+      @descriptions = @job.descriptions
+
 	end
 	
 	def update
@@ -42,10 +53,8 @@ class JobsController < UsersController
 	
 	def new
     @job = current_user.jobs.build
-    if params[:group_id]
-		  @group = current_user.groups.find(params[:group_id]) if params[:group_id]
-      @categorization = @job.categorizations.build
-    end
+		@group = current_user.groups.find(params[:group_id]) if params[:group_id]
+    Group.all.length.times { @categorization = @job.categorizations.build }
     @descriptions = Array.new
     current_user.categories.each do |category|
       @descriptions << @job.descriptions.build
@@ -53,7 +62,7 @@ class JobsController < UsersController
 	end
 	
 	def create 
-		@job = current_user.jobs.build(job_params)
+    @job = current_user.jobs.build(job_params)
 		#Adds http:// to non_blank links with a resonable domain name
 		#if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/]
 			#link.insert(0, 'http://')
@@ -90,7 +99,7 @@ class JobsController < UsersController
 			@group = group
 		end
 
-		def job_params
+    def job_params
 			params.require(:job).permit(:id, :user_id, descriptions_attributes: [:id, :job_id, :category, :content],categorizations_attributes: [:id, :group_id, :job_id]) 
 		end
 
@@ -99,5 +108,8 @@ class JobsController < UsersController
 		end
 		def non_signed_in_user 
 		end
+    
+    def correct_user
+    end
 		
 end

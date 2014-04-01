@@ -1,6 +1,3 @@
-<h1>Edit Jobs</h1>
-
-<div class="form">
 	<%= form_for(@job, url: jobs_path) do |f| %>
 		<%= render 'shared/error_messages' %>
 		<% @descriptions.each_with_index do |object, index| %>
@@ -18,12 +15,10 @@
 		<%= label :categorizations, "Groups" %>
 		<% current_user.groups.each do |group| %>
 		<%= f.fields_for :categorizations, @categorization do |build| %>
-				<%= build.check_box :group_id, {checked: @group == group|| @categorizations.include?(group) }, checked_value = group.id, unchecked_value = nil %>
-				<%= label :group_id, group.name, value: group.id %>
+			  <%= build.check_box :group_id, {checked: @group == group }, checked_value = group.id, unchecked_value = nil %>
+			  <%= label :group_id, group.name, value: group.id %>
 			<% end %>
 		<% end %>
 
 		<%= f.submit "Create Posting" %>
 	<% end %>
-</div>
-	

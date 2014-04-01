@@ -96,4 +96,27 @@ describe "Job pages" do
     
     it { should have_content "Position category" }
   end 
+  
+  describe "creating a new job with two job groups" do
+    before do
+      sign_in user
+      group2 = user.groups.create(name: "Group 2")
+      visit jobs_path
+      click_link "New"
+      check "job_categorizations_attributes_0_group_id"
+      check "job_categorizations_attributes_1_group_id"
+      user.categories.each do |field|
+        fill_in field.titleize, with: "Position #{field}"
+      end
+      click_button "Create Posting"
+    end
+    it "belong in group 1" do
+      click_link group.name
+      expect(page).to have_content("Position category")
+    end
+    it "belong in group 2" do
+     click_link "Group 2"
+     expect(page).to have_content("Position category")
+    end
+  end
 end

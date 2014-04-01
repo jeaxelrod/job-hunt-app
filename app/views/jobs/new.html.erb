@@ -1,27 +1,6 @@
 <h1>Create new Job Listing</h1>
 
 <div class="form">
-	<%= form_for(@job, url: jobs_path) do |f| %>
-		<%= render 'shared/error_messages' %>
-		<% @descriptions.each_with_index do |object, index| %>
-			<%= f.fields_for :descriptions, object do |description| %>
-				<% category = current_user.categories[index] %>
-				
-				<%= description.hidden_field :category, value: category %>
-				
-				<%= description.label :content, category.titleize %>
-				<%= description.text_field :content %>
-				
-			<% end %>
-		<% end %>
-		
-		<% if @group %>
-		  <%= f.fields_for :categorizations, @categorization do |build| %>
-			  <%= build.hidden_field :group_id, value: @group.id %>
-			<% end %>
-		<% end %>
-
-		<%= f.submit "Create Posting" %>
-	<% end %>
+  <%= render 'form' %>
 </div>
 	
