@@ -20,29 +20,19 @@ class JobsController < UsersController
 	end
 	
 	def edit
-
-		  @job = current_user.jobs.find(params[:id])
-      if @job.categorizations
-        @categorizations = @job.categorizations
-        counter = @job.categorizations.length - current_user.groups.length
-        counter.times do
-          @categorizations << @job.categorizations.build 
-        end
-      else
-        Group.all.length.times { @categorization = @job.categorizations.build }
-      end
-      @descriptions = @job.descriptions
+   ## begin
+    @job = current_user.jobs.find(params[:id]) 
+    @groups = @job.groups if @job.groups    
+    @nongroups = @job.nongroups
+    @nongroups.each do |group|
+      @categorization = @job.categorizations.build
+    end
+    @descriptions = @job.descriptions
 
 	end
 	
 	def update
-		@user = User.find(params[:user_id])
-		@job = Job.find(params[:id])
-		link = params[:job][:link]
-		#Adds http:// to non_blank links with a resonable domain name
-		if !link[/^(http:\/\/)/] && link != "" && link[/[A-Za-z0-9\.\-]+/] 
-			link.insert(0, 'http://')
-		end
+		@job = current_user.jobs.find(params[:id])
 		if @job.update_attributes(job_params)
 			flash[:success] = "Job Updated"
 			redirect_back_or 'index'
@@ -85,6 +75,17 @@ class JobsController < UsersController
 		@job = Job.find(params[:id])
 		store_location
 	end
+  
+  def destroy
+    begin
+      current_user.jobs.find(params[:id]).delete
+      flash[:success] = "Job was deleted"
+      redirect_to jobs_path
+    rescue
+      flash[:notice] = "Failed to destroy job"
+      redirect_to jobs_path
+    end
+  end
 	
 	private
 

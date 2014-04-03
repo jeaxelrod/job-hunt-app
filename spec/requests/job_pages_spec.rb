@@ -29,10 +29,11 @@ describe "Job pages" do
   end
 		
 	describe "edit page" do
-		let(:submit){ "Save changes" }
+		let(:submit){ "Update Job" }
 		before do
 			sign_in user
 			visit jobs_path
+      group2 = user.groups.create(name: "Group 2")
 			click_link "Edit"
 		end
 		
@@ -45,14 +46,23 @@ describe "Job pages" do
 			it { should have_content(description.category.titleize) }	
 		end
 		
-		describe "should save changes" do
+		describe "changing form should save changes" do
 		  before do
-			  fill_in description.category.titleize, with: "Position"
+			  fill_in description.category.titleize, with: "Soda"
+        check "job_categorizations_attributes_0_group_id"
 			  click_button submit
+        click_link "Group 2"
 			end
 			
-			it { should have_content "Position" }
+			it { should have_content "Soda" }
 		end
+    describe "deleting group should delete group" do
+      before do
+        click_link "delete"
+      end
+      
+      it { should_not have_link("delete") }
+    end
 ##		describe "when accessed from job profile" do
 #			before do 
 #				visit user_job_path(user_id: user.id, id: job.id) 
@@ -118,5 +128,16 @@ describe "Job pages" do
      click_link "Group 2"
      expect(page).to have_content("Position category")
     end
+  end
+  
+  describe "deleting a job" do
+    before do
+      sign_in user
+      visit jobs_path
+      click_link "Edit"
+      click_link "Delete Job"
+    end
+    
+    it { should_not have_content(description.content) }
   end
 end

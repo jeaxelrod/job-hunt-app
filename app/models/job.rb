@@ -9,5 +9,13 @@ class Job < ActiveRecord::Base
 	validates :user_id, presence: true
 	validates_format_of :link, allow_nil: true, allow_blank: true,
 		with: /\A#{URI::regexp}\z/
-		
+  
+  def nongroups
+    job_groups = self.groups
+    group_ids = Array.new
+    job_groups.each do |group|
+      group_ids << group
+    end
+    user.groups.where.not(id:  group_ids)
+  end
 end

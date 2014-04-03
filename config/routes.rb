@@ -6,7 +6,7 @@ JobApp::Application.routes.draw do
 	resources :groups
 	resources :sessions, only: [:new, :create, :destroy]
   resources :users
-
+  resources :categorizations, only: [:new, :create, :destroy]
 	
 	root 'static_pages#index', :controller=>"sessions"
 	match '/contact', to: 'static_pages#contact', via: 'get'

@@ -1,7 +1,7 @@
 <h1>Edit Jobs</h1>
 
-<div class="form">
-	<%= form_for(@job, url: jobs_path) do |f| %>
+<div class="form row">
+	<%= form_for(@job, url: job_path) do |f| %>
 		<%= render 'shared/error_messages' %>
 		<% @descriptions.each_with_index do |object, index| %>
 			<%= f.fields_for :descriptions, object do |description| %>
@@ -16,14 +16,21 @@
 		<% end %>
 		
 		<%= label :categorizations, "Groups" %>
-		<% current_user.groups.each do |group| %>
-		<%= f.fields_for :categorizations, @categorization do |build| %>
-				<%= build.check_box :group_id, {checked: @group == group|| @categorizations.include?(group) }, checked_value = group.id, unchecked_value = nil %>
+		<% @nongroups.each do |group| %>
+		  <%= f.fields_for :categorizations, @categorization do |build| %>
+				<%= build.check_box :group_id,{checked: @group == group }, checked_value = group.id, unchecked_value = nil %>
 				<%= label :group_id, group.name, value: group.id %>
 			<% end %>
 		<% end %>
-
-		<%= f.submit "Create Posting" %>
+		<% @groups.each do |group|  %>
+			<p>
+				 <%= group.name.titleize %>
+				 <%= link_to "delete", group.categorizations.where(job_id: @job.id).first, method: :delete, 
+								  data: { confirm: "You sure?" } %>
+			</p>
+		<% end %>
+		<%= f.submit %>
 	<% end %>
+	<%= link_to "Delete Job", @job, method: :delete, data: { confirm: "You sure?" } %>
 </div>
 	
