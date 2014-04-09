@@ -5,8 +5,8 @@ describe "User Pages" do
   subject { page }
 	
 	describe "profile page" do
-		let(:user) { FactoryGirl.create(:user) }
-		before { visit user_path(user) }
+		let!(:user) { FactoryGirl.create(:user) }
+		before { visit user_url(id: user.id) }
 		
 		it { should have_content(user.name) } #Seems to be working LOOK
 	#	it { should have_title(user.name) }
@@ -25,7 +25,7 @@ describe "User Pages" do
 		describe "with valid information" do
 			before do
 				fill_in "Username",			with: "Example User"
-				fill_in "Password",     with: "foobar"
+				fill_in "Password", match: :first, with: "foobar"
 				fill_in "Confirmation", with: "foobar"
 			end
 			
@@ -67,7 +67,7 @@ describe "User Pages" do
 		describe "with invalid information" do
 			before { click_button "Save changes" }
 			
-			it { should have_content('error') }
+			it { should have_content('missing') }
 		end
 		
 		describe "with valid information" do

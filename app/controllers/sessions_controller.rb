@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 			redirect_back_or user
 		else
 			flash.now[:error] = 'Invalid username/password combination'
-			render 'static_pages/home' #with error message
+			render 'static_pages/index' #with error message
 		end
 	end
 	

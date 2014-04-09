@@ -95,11 +95,11 @@ describe User do
 		before { @user.save }
 		let(:group) { FactoryGirl.create(:group, user: @user) }
 		let!(:older_job) do
-			FactoryGirl.create(:job, user: @user, group: group, 
+			FactoryGirl.create(:job, user: @user,
 												 created_at: 1.day.ago)
 		end
 		let!(:newer_job) do
-			FactoryGirl.create(:job, user: @user, group: group, 
+			FactoryGirl.create(:job, user: @user,  
 												 created_at: 1.hour.ago)
 		end
 		

@@ -9,7 +9,7 @@ describe "Authentication" do
 		
 		let(:submit) { "Sign in" }
 		
-		it { should have_content('The Croc Hunter') }
+		it { should have_content('Folio') }
 		
 		describe "with valid signin info" do
 			let(:user) { FactoryGirl.create(:user) }
@@ -18,7 +18,7 @@ describe "Authentication" do
 			it { should have_content(user.name) }
 			it { should have_link('Profile',     href: user_path(user)) }
 			it { should have_link('Sign out',    href: signout_path) }
-			it { should have_link('Settings',    href: edit_user_path(user)) }
+			it { should have_link('Edit Profile',    href: edit_user_path(user)) }
 			it { should_not have_link('Sign in', href: signin_path) }
 			
 			describe "followed by signout" do
@@ -32,11 +32,6 @@ describe "Authentication" do
 			before { click_button submit }
 			
 			it { should have_content("Invalid") }
-			
-			describe "after visiting another page" do
-				before { click_link "Home" }
-				it { should_not have_content("Invalid") }
-			end
 		end
 	end
 
@@ -103,7 +98,7 @@ describe "Authentication" do
 	
 		describe "as non_admin user" do
 			let(:user) { FactoryGirl.create(:user) }
-			let(:non_admin) { FactoryGirl.create(:user) }
+			let(:non_admin) { FactoryGirl.create(:user, username: "non_admin") }
 			
 			before { sign_in non_admin, no_capybara: true }
 			

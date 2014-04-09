@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 	
   def new
 		@user = User.new
+    current_user = @user
   end
 	
 	def edit
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
 			flash[:success] = "Profile updated"
 			redirect_to @user
 		else
+      flash[:failure] = "Some information is missing"
 			render 'edit'
 		end
 	end
