@@ -30,12 +30,13 @@ class UsersController < ApplicationController
 	
 	def create
 		@user = User.new(user_params)
+    descriptions = ["position", "company", "status", "job posting", "documents", "notes"]
+    @user.categories = descriptions
 		if @user.save
 			sign_in @user
 			
 			@user.groups.create(name: "Interested")
 			@user.groups.create(name: "Applied")
-			
 			flash[:success] = "Welcome to the Sample App!"
 			redirect_to @user
 		else
