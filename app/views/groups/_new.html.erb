@@ -1,0 +1,17 @@
+<% @group = current_user.groups.build %>
+<%= form_for @group do |f| %>
+  <%= render 'shared/error_messages' %>
+	
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	
+	<%= f.submit %>
+<% end %>
+<a href="#" class="button tiny">Cancel</a>
+
+<script>
+  $(".button").click( function() {
+	  $(#new-group).toggle();
+		return false;
+	});
+</script>

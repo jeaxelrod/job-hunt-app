@@ -140,4 +140,21 @@ describe "Job pages" do
     
     it { should_not have_content(description.content) }
   end
+  
+  describe "creating a new group"do 
+    before do
+      sign_in user
+      visit jobs_path
+    end
+    
+    describe "creating group" do
+      before do
+        click_link "+"
+        fill_in "Name", with: "Name"
+        click_button "Create Group"
+      end
+      
+      it { should have_content("Name") }
+    end
+  end
 end

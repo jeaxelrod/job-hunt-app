@@ -1,0 +1,43 @@
+<ul class="side-nav">
+	<dl class="sub-nav">
+		<dt>Groups:</dt>
+		<% unless @selected_group %>
+			<dd><%= link_to 'All', jobs_path, class:'active' %></dd>
+		<% else %>
+			<dd><%= link_to 'All', jobs_path %></dd>
+		<% end %>
+		<% @groups.each do |group| %>
+		  <% if group.name.present? %>
+				<% if group == @selected_group %>
+					<dd><%= link_to group.name.titleize, group_jobs_path(group), class:"active" %></dd>
+				<% else %>
+					<dd><%= link_to group.name.titleize, group_jobs_path(group)  %></dd>
+				<% end %>
+			<% end %>
+		<% end %>
+		<dd><%= link_to "+", new_group_path, remote: true, class:"group-form" %></dd>
+	</dl>
+</ul>
+<div id="new-group">
+	<% @group = current_user.groups.build %>
+	<%= form_for @group do |f| %>
+		<div id="group-errors">
+			<h3>Name is blank</h3>
+		</div>		
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+		
+		<%= f.submit %>
+	<% end %>
+	<a href="#" class="button tiny">Cancel</a>
+</div>
+<script>
+  $(".button").click( function() {
+	  $("#new-group").toggle();
+		return false;
+	});
+	$(".group-form").click( function() {
+	  $("#new-group").toggle();
+		return false;
+	});
+</script>

@@ -13,5 +13,7 @@
 				<dd><%= link_to group.name.titleize, group_jobs_path(group)  %></dd>
 			<% end %>
 		<% end %>
+		<dd><%= link_to "+", new_group_path, remote: true %></dd>
 	</dl>
 </ul>
+<div id="new-group"></div>
