@@ -104,9 +104,6 @@ class JobsController < UsersController
 			params.require(:job).permit(:id, :user_id, descriptions_attributes: [:id, :job_id, :category, :content],categorizations_attributes: [:id, :group_id, :job_id]) 
 		end
 
-    def job_content_params
-			params.permit(job_column_contents_attributes: [ id: [ :content,:job_column_id]])
-		end
 		def non_signed_in_user 
 		end
     

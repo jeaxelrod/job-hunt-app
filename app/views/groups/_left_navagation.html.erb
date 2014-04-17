@@ -21,6 +21,7 @@
 <div id="new-group">
 	<% @group = current_user.groups.build %>
 	<%= form_for @group do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
 		<div id="group-errors">
 			<h3>Name is blank</h3>
 		</div>		

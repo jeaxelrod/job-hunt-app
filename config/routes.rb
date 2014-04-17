@@ -3,7 +3,8 @@ JobApp::Application.routes.draw do
 		resources :jobs
 	end
   resources :jobs
-	resources :groups
+  match '/group/edit', to:'groups#edit',   via: 'get'
+  match '/group/edit',      to: 'groups#update', via: 'patch'
 	resources :sessions, only: [:new, :create, :destroy]
   resources :users
   resources :categorizations, only: [:new, :create, :destroy]

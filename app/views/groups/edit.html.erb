@@ -1,0 +1,17 @@
+<div class="row">
+  <h1>Edit Groups</h1>
+</div>
+<%= form_tag group_edit_path,  method: :patch do %>
+	<% @groups.each do |group| %>
+	  <%= fields_for "groups[]", group do |build| %>
+		  <%= render 'shared/error_messages', object: build.object %>
+			<div class="row">
+				<%= build.label :name %>
+				<%= build.text_field :name %>
+			</div>
+		<% end %>
+	<% end %>
+	<div class="row">
+	  <%= submit_tag "Update Groups" %>
+	</div>
+<% end %>

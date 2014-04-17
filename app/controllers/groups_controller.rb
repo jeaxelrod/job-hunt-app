@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+	before_action :signed_in_user
+  
   def index
 	  @jobs = current_user.jobs
 		@groups = current_user.groups
@@ -7,8 +9,25 @@ class GroupsController < ApplicationController
 	def show
 	end
   
-  def new
-
+  def edit
+    @groups = current_user.groups 
+  end
+  
+  def update
+    @groups = Array.new
+    @updated = Hash.new
+    params['groups'].keys.each do |id|
+      @group = Group.find(id)
+      @groups << @group
+      unless @group.update_attributes(edit_group_params(id))
+        @errors = true
+      end
+    end
+    unless @errors
+      redirect_to "/jobs"
+    else
+      render :action => 'edit'
+    end
   end
   
   def create
@@ -38,4 +57,17 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(:name, :user_id)
     end
+    
+    def edit_group_params(id)
+      params.require(:groups).fetch(id).permit(:name)
+    end
+    
+    private
+
+		def signed_in_user
+			unless signed_in?
+				store_location
+				redirect_to root_url, notice: "Please sign in." 
+			end
+		end
 end

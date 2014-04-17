@@ -34,7 +34,7 @@ describe "Job pages" do
 			sign_in user
 			visit jobs_path
       group2 = user.groups.create(name: "Group 2")
-			click_link "Edit"
+			visit edit_job_path(job)
 		end
 		
 		describe "it should bring back to page it was accessed from" do
@@ -134,27 +134,26 @@ describe "Job pages" do
     before do
       sign_in user
       visit jobs_path
-      click_link "Edit"
+      visit edit_job_path(job)
       click_link "Delete Job"
     end
     
     it { should_not have_content(description.content) }
   end
   
-  describe "creating a new group"do 
+  describe "edit groups" do
+    let!(:group2) { FactoryGirl.create(:group, user: user, name: "Group 2") }
     before do
       sign_in user
-      visit jobs_path
+      visit group_edit_path
+      fill_in "Name", with: "Boba", match: :first
+      fill_in "groups_2_name", with: "Pmt"
+      click_button "Update Groups"
     end
     
-    describe "creating group" do
-      before do
-        click_link "+"
-        fill_in "Name", with: "Name"
-        click_button "Create Group"
-      end
-      
-      it { should have_content("Name") }
-    end
+    it { should_not have_content("error") }
+    it { should have_content("Boba") }
+    it { should have_content("Pmt") }
+    
   end
 end

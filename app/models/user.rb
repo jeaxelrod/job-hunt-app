@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	has_many :descriptions, through: :jobs
 	has_many :categorizations, through: :jobs
 	accepts_nested_attributes_for :jobs
+  accepts_nested_attributes_for :groups
 
 	
 	def User.new_remember_token

@@ -1,5 +1,5 @@
 	<%= form_for(@job, url: jobs_path) do |f| %>
-		<%= render 'shared/error_messages' %>
+		<%= render 'shared/error_messages', object: f.object %>
 		<% @descriptions.each_with_index do |object, index| %>
 			<%= f.fields_for :descriptions, object do |description| %>
 				<% category = current_user.categories[index] %>
